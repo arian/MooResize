@@ -1,7 +1,7 @@
 MooResize
 ===============
 
-	MooResize adds three handles to any image or other DOM Element. With these handles, you can resize 
+MooResize adds three handles to any image or other DOM Element. With these handles, you can resize 
 your element on a easy way. It has three events, onStart, onResize and onComplete so it is very flexible too. 
 Also it is very easy to set a ratio by the setRatio method.
 
@@ -39,7 +39,7 @@ And you're done!
 			document.id(this).setStyle('opacity',0.5);
 		},
 		onComplete: function(size){
-			setSizeText(size);
+			document.id(this).setStyle('opacity',1); 
 			alert(size.x+' '+size.y);
 		},
 		minSize: {
