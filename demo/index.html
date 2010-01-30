@@ -17,13 +17,13 @@
 window.addEvent('load',function(){
 	
 	var setSizeText = function(size){
-		document.id('size').set('text',size.x,size.y);
+		document.id('size').set('text',size.x+' '+size.y);
 	}
 	
 	var resize = new MooResize('img1',{
 		handleSize: 15,
 		handleStyle: {
-			background: 'blue'
+			background: '#FAFAFA'
 		},
 		onStart: function(){
 			document.id(this).setStyle('opacity',0.5);
