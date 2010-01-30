@@ -1,8 +1,8 @@
 MooResize
 ===============
 
-MooResize adds three handles to your any DOM Element. With these handles, you can resize 
-your element on a easy way. Using this class is easy with the onStart, onResize and onComplete events. 
+	MooResize adds three handles to any image or other DOM Element. With these handles, you can resize 
+your element on a easy way. It has three events, onStart, onResize and onComplete so it is very flexible too. 
 Also it is very easy to set a ratio by the setRatio method.
 
 ![Screenshot](http://github.com/arian/MooResize/raw/master/screenshot.png)
