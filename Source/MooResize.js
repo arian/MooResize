@@ -94,7 +94,6 @@ var MooResize = new Class({
 		};
 	
 		$each(this.handles,function(handle,key){
-			// Style each handle
 			handle.el.setStyles($merge({
 				border: '1px solid black',
 				background: 'white'
@@ -103,14 +102,14 @@ var MooResize = new Class({
 				width: this.options.handleSize,
 				height: this.options.handleSize
 			})).inject(this.el,'after');
+
 			handle.setPosition(this.elCoords.width,this.elCoords.height);
 			
-			// Apply the Drag class 
 			handle.drag = new Drag(
 				handle.el,
 				$merge(this.options.dragOptions,handle.dragOptions)
 			);	
-			// Fire the onDrag event
+
 			handle.drag.addEvents({
 				'start': function(){
 					this.fireEvent('start',[this.getSize()]);
@@ -128,7 +127,7 @@ var MooResize = new Class({
 			maxSize = this.options.maxSize;
 		
 		for(dir in size){
-			size[dir] = (function(mag,dir){ // (magnitude and direction)
+			size[dir] = (function(mag,dir){
 				if(mag !== null && mag < minSize[dir]){					
 					return minSize[dir];
 				}else if(mag !== null && maxSize && mag > maxSize[dir]){
