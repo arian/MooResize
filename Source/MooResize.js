@@ -26,7 +26,7 @@ var MooResize = new Class({
 		handleSize: 10/*,
 		minSize: false, // object with x and y or false
 		maxSize: false, // object with x and y or false
-		ratio: false, false, true or any number (ratio = width/height)
+		ratio: false, // false, true or any number (ratio = width/height)
 		dragOptions: {},
 		handleStyle: {},
 		
@@ -48,7 +48,7 @@ var MooResize = new Class({
 				el: new Element('div').setStyle('cursor','w-resize'),
 			 	dragOptions: {
 					onDrag: function(el,e){
-						this.setSize(e.page.x - this.elCoords.left,null);
+						this.setSize({x: e.page.x - this.elCoords.left});
 					}.bind(this),
 					modifiers: {x: 'left', y: false}
 				},
@@ -66,7 +66,7 @@ var MooResize = new Class({
 						return this;
 					})(),
 					onDrag: function(el,e){
-						this.setSize(null,e.page.y - this.elCoords.top);
+						this.setSize({y: e.page.y - this.elCoords.top});
 					}.bind(this),
 					modifiers: {x: false, y: 'top'}
 				},
@@ -81,10 +81,11 @@ var MooResize = new Class({
 				el: new Element('div').setStyle('cursor','se-resize'),
 				dragOptions: {
 					onDrag: function(el,e){
-						var width = e.page.x - this.elCoords.left,
-							height = e.page.y - this.elCoords.top;
-						this.setSize(width,height);
-					}.bind(this)					
+						this.setSize({
+							x: e.page.x - this.elCoords.left,
+							y: e.page.y - this.elCoords.top
+						});
+					}.bind(this)
 				},
 				setPosition: function(width,height){
 					this.handles.corner.el.setStyles({
@@ -125,9 +126,9 @@ var MooResize = new Class({
 	},
 	
 	setSize: function(width,height){
-		var minSize = $type(this.options.minSize) != 'object' ? {x:0,y:0} : this.options.minSize,
-			maxSize = this.options.maxSize,
-			size = {x:width,y:height};
+		var size = $type(width) == 'object' ? width : {x: width, y: height},
+			minSize = $type(this.options.minSize) != 'object' ? {x:0,y:0} : this.options.minSize,
+			maxSize = this.options.maxSize;
 		
 		for(dir in size){
 			size[dir] = (function(mag,dir){ // (magnitude and direction)
