@@ -122,15 +122,17 @@ var MooResize = new Class({
 	},
 	
 	setSize: function(width,height){
-		var size = $type(width) == 'object' ? width : {x: width, y: height},
+		var size = $type(width) == 'object' ? {x: width.x, y: width.y} : {x: width, y: height},
 			minSize = $type(this.options.minSize) != 'object' ? {x:0,y:0} : this.options.minSize,
 			maxSize = this.options.maxSize;
 		
 		for(dir in size){
 			size[dir] = (function(mag,dir){
-				if(mag !== null && mag < minSize[dir]){					
+				if(!mag && mag !== 0) mag = null;
+				if(mag === null) return mag;
+				if(mag < minSize[dir]){					
 					return minSize[dir];
-				}else if(mag !== null && maxSize && mag > maxSize[dir]){
+				}else if(maxSize && mag > maxSize[dir]){
 					return maxSize[dir];
 				}
 				return mag;		
