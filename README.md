@@ -84,10 +84,14 @@ of the handles)
 	#JS
 	resize.setSize(width,height);
 	
+	// Or
+	
+	resize.setSize({x: 500, y: 400});
+	
 #### Arguments ####
 
-1. width - (*number*) - The new width
-2. height - (*number*) - The new height
+1. width - (*number*,*object*) - The new width. Or an object like {x: 300, y: 200}
+2. height - (*number*) - The new height. This is optional if the first argument is an object
 
 #### Returns ####
 
