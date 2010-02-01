@@ -62,9 +62,6 @@ var MooResize = new Class({
 			vert: {
 				el: new Element('div').setStyle('cursor','n-resize'),
 				dragOptions: {
-					bla: (function(){
-						return this;
-					})(),
 					onDrag: function(el,e){
 						this.setSize({y: e.page.y - this.elCoords.top});
 					}.bind(this),
