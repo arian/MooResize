@@ -24,7 +24,8 @@ var MooResize = new Class({
 	
 	options: {
 		handleSize: 10,
-		minSize: 10, // number or object with x and y
+		minSize: false, // object with x and y or false
+		maxSize: false, // object with x and y or false
 		ratio: false/*, false, true or any number (ratio = width/height)
 		dragOptions: {},
 		handleStyle: {},
@@ -124,33 +125,42 @@ var MooResize = new Class({
 	},
 	
 	setSize: function(width,height){
-		var minSizeWidth = (this.options.minSize.width ? this.options.minSize.width : this.options.minSize),
-			minSizeHeight = (this.options.minSize.height ? this.options.minSize.height : this.options.minSize)
-		width = width && width < minSizeWidth ? minSizeWidth : width;
-		height = height && height < minSizeHeight ? minSizeHeight : height;
+		var minSize = $type(this.options.minSize) != 'object' ? {x:0,y:0} : this.options.minSize,
+			maxSize = this.options.maxSize,
+			size = {x:width,y:height};
+		
+		for(dir in size){
+			size[dir] = (function(mag,dir){ // (magnitude and direction)
+				if(mag !== null && mag < minSize[dir]){					
+					return minSize[dir];
+				}else if(mag !== null && maxSize && mag > maxSize[dir]){
+					return maxSize[dir];
+				}
+				return mag;		
+			})(size[dir],dir);
+		}
 
-		if (!width && height){
-			width = this.ratio ? height * this.ratio : this.elCoords.width;  
-		} else if (!height && width){
-			height = this.ratio ? width / this.ratio : this.elCoords.height; 
-		} else if (width && height && this.ratio){
-			height = width / this.ratio;
+		if (size.x === null && size.y !== null){
+			size.x = this.ratio ? size.y * this.ratio : this.elCoords.width;  
+		} else if (size.y === null && size.x !== null){
+			size.y = this.ratio ? size.x / this.ratio : this.elCoords.height; 
+		} else if (size.x !== null && size.y !== null && this.ratio){
+			size.y = size.x / this.ratio;
 		}
 		
-		width = width.round();
-		height = height.round();
+		for(dir in size) size[dir] = size[dir].round();
 
 		this.el.setStyles({
-			width: width,
-			height: height
+			width: size.x,
+			height: size.y
 		});
 
 		$each(this.handles,function(handle){
-			handle.setPosition(width,height);
+			handle.setPosition(size.x,size.y);
 		});
 		
 		this.elCoords = this.el.getCoordinates();
-		this.fireEvent('resize',[{x: width, y: height},this.el]);
+		this.fireEvent('resize',[size,this.el]);
 		return this;
 	},
 	
