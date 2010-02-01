@@ -23,10 +23,10 @@ var MooResize = new Class({
 	Implements: [Options,Events],
 	
 	options: {
-		handleSize: 10,
+		handleSize: 10/*,
 		minSize: false, // object with x and y or false
 		maxSize: false, // object with x and y or false
-		ratio: false/*, false, true or any number (ratio = width/height)
+		ratio: false, false, true or any number (ratio = width/height)
 		dragOptions: {},
 		handleStyle: {},
 		
