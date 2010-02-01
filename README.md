@@ -62,7 +62,8 @@ And you're done!
 
 #### Options ####
 1. handleSize - (*number*: defaults to 10) The size of the handles  
-2. minSize - (*number*,*object*: defaults to 10) The minimum size. You can set a number or an object e.g. *{width: 20, height: 50}*
+2. minSize - (*object*) The minimum size. You can set an object for the minimum size e.g. *{x: 100, y: 75}*
+3. maxSize - (*object*) The maximum size. You can set an object for the maximum size e.g. *{x: 400, y: 300}*
 3. ratio - (*boolean*,*float*: defaults to false) Should it keep a ratio: true or false. If you set a float, e.g. 1.5 you can set the width/height ratio
 4. dragOptions: (*object*) The options of MooTools More's Drag
 5. handleStyle: (*object*) Style the handles
