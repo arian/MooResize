@@ -43,8 +43,8 @@ And you're done!
 			alert(size.x+' '+size.y);
 		},
 		minSize: {
-			width: 100,
-			height: 50
+			x: 100,
+			y: 50
 		}
 	});
 	
